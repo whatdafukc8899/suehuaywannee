@@ -230,24 +230,25 @@ function toggleLotto(el){
 <script>
 var DAILY_TSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vT8jLwns22k_6jK1zJFaWKj3YsUrlIV5vrmepsH1h76vwx7fV-GDv4WapQXx7L5MgspaNLCyx5kG08h/pub?gid=886751551&single=true&output=tsv';
 function getTodayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+var SHOW_ONLY=['หุ้นไทยเย็น','ลาวสตาร์','หุ้นอินเดีย','หุ้นฮั่งเส็ง เช้า','หุ้นฮั่งเส็ง บ่าย','ฮานอยพิเศษ','ฮานอย VIP'];
+var LOTTERY_INFO={
+  'หุ้นไทยเย็น':{flag:'🇹🇭',color:'#003087'},
+  'ลาวสตาร์':{flag:'🇱🇦',color:'#C0392B'},
+  'หุ้นอินเดีย':{flag:'🇮🇳',color:'#FF6B00'},
+  'หุ้นฮั่งเส็ง เช้า':{flag:'🇭🇰',color:'#DE2910'},
+  'หุ้นฮั่งเส็ง บ่าย':{flag:'🇭🇰',color:'#DE2910'},
+  'ฮานอยพิเศษ':{flag:'🇻🇳',color:'#C0392B'},
+  'ฮานอย VIP':{flag:'🇻🇳',color:'#C0392B'}
+};
 function getLotteryInfo(name){
-  var n=name;
-  if(n.includes('ลาว'))return{flag:'🇱🇦',color:'#C0392B'};
-  if(n.includes('ฮานอย')||n.includes('เวียด'))return{flag:'🇻🇳',color:'#C0392B'};
-  if(n.includes('มาเลย์'))return{flag:'🇲🇾',color:'#CC3300'};
-  if(n.includes('เกาหลี'))return{flag:'🇰🇷',color:'#003087'};
-  if(n.includes('นิกเกอิ')||n.includes('ญี่ปุ่น'))return{flag:'🇯🇵',color:'#BC002D'};
-  if(n.includes('ไต้หวัน'))return{flag:'🇹🇼',color:'#003087'};
-  if(n.includes('จีน'))return{flag:'🇨🇳',color:'#DE2910'};
-  if(n.includes('ฮั่งเส็ง'))return{flag:'🇭🇰',color:'#DE2910'};
-  if(n.includes('สิงคโปร์'))return{flag:'🇸🇬',color:'#EF3340'};
-  if(n.includes('อินเดีย'))return{flag:'🇮🇳',color:'#FF9933'};
-  if(n.includes('รัสเซีย'))return{flag:'🇷🇺',color:'#003087'};
-  if(n.includes('เยอรมัน'))return{flag:'🇩🇪',color:'#000000'};
-  if(n.includes('อังกฤษ'))return{flag:'🇬🇧',color:'#012169'};
-  if(n.includes('ดาวโจนส์'))return{flag:'🇺🇸',color:'#003087'};
-  if(n.includes('ไทย')||n.includes('รัฐบาล'))return{flag:'🇹🇭',color:'#003087'};
-  if(n.includes('ยี่กี'))return{flag:'🎲',color:'#7C3AED'};
+  if(LOTTERY_INFO[name])return LOTTERY_INFO[name];
+  if(name.includes('ลาว'))return{flag:'🇱🇦',color:'#C0392B'};
+  if(name.includes('ฮานอย')||name.includes('เวียด'))return{flag:'🇻🇳',color:'#C0392B'};
+  if(name.includes('มาเลย์'))return{flag:'🇲🇾',color:'#CC3300'};
+  if(name.includes('ฮั่งเส็ง'))return{flag:'🇭🇰',color:'#DE2910'};
+  if(name.includes('อินเดีย'))return{flag:'🇮🇳',color:'#FF6B00'};
+  if(name.includes('ไทย')||name.includes('รัฐบาล'))return{flag:'🇹🇭',color:'#003087'};
+  if(name.includes('ยี่กี'))return{flag:'🎲',color:'#7C3AED'};
   return{flag:'🎯',color:'#CC0000'};
 }
 function loadDailyNumbers(){
@@ -258,7 +259,8 @@ function loadDailyNumbers(){
     for(var i=1;i<lines.length;i++){
       if(!lines[i].trim())continue;
       var r=lines[i].split('\t');
-      if(r[0]&&r[0].trim()===today)rows.push(r);
+      var rname=(r[1]||'').trim();
+      if(r[0]&&r[0].trim()===today&&SHOW_ONLY.indexOf(rname)!==-1)rows.push(r);
     }
     if(rows.length===0){el.innerHTML='<div style="text-align:center;color:#aaa;font-size:13px;padding:20px 0">ยังไม่มีข้อมูลวันนี้</div>';return;}
     var html='<div style="display:flex;flex-direction:column;gap:8px">';
