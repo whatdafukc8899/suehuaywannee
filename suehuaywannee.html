@@ -231,68 +231,41 @@ function toggleLotto(el){
 var DAILY_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vT8jLwns22k_6jK1zJFaWKj3YsUrlIV5vrmepsH1h76vwx7fV-GDv4WapQXx7L5MgspaNLCyx5kG08h/pub?output=csv';
 function getTodayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function parseCSVRow(row){var result=[],cur='',inQ=false;for(var i=0;i<row.length;i++){var c=row[i];if(c==='"'){inQ=!inQ;}else if(c===','&&!inQ){result.push(cur.trim());cur='';}else{cur+=c;}}result.push(cur.trim());return result;}
-
-function getLotteryFlag(name){
-  name=name.toLowerCase();
-  if(name.includes('ลาว')||name.includes('lao'))return'🇱🇦';
-  if(name.includes('ฮานอย')||name.includes('เวียด')||name.includes('vietnam'))return'🇻🇳';
-  if(name.includes('มาเลย์')||name.includes('malaysia'))return'🇲🇾';
-  if(name.includes('เกาหลี')||name.includes('korea'))return'🇰🇷';
-  if(name.includes('เยอรมัน')||name.includes('german'))return'🇩🇪';
-  if(name.includes('อังกฤษ')||name.includes('uk')||name.includes('england'))return'🇬🇧';
-  if(name.includes('รัสเซีย')||name.includes('russia'))return'🇷🇺';
-  if(name.includes('อียิปต์')||name.includes('egypt'))return'🇪🇬';
-  if(name.includes('นิกเกอิ')||name.includes('nikkei')||name.includes('ญี่ปุ่น'))return'🇯🇵';
-  if(name.includes('ไต้หวัน')||name.includes('taiwan'))return'🇹🇼';
-  if(name.includes('จีน')||name.includes('china'))return'🇨🇳';
-  if(name.includes('ฮั่งเส็ง')||name.includes('hang'))return'🇭🇰';
-  if(name.includes('สิงคโปร์')||name.includes('singapore'))return'🇸🇬';
-  if(name.includes('อินเดีย')||name.includes('india'))return'🇮🇳';
-  if(name.includes('ดาวโจนส์')||name.includes('dow'))return'🇺🇸';
-  if(name.includes('ไทย')||name.includes('หุ้นไทย'))return'🇹🇭';
-  if(name.includes('ยี่กี'))return'🎲';
-  return'🎯';
-}
-
 function loadDailyNumbers(){
   var el=document.getElementById('daily-numbers-widget');
   if(!el)return;
   fetch(DAILY_CSV).then(function(r){return r.text();}).then(function(text){
     var lines=text.split('\n'),today=getTodayStr(),rows=[];
     for(var i=1;i<lines.length;i++){if(!lines[i].trim())continue;var r=parseCSVRow(lines[i]);if(r[0]&&r[0].replace(/"/g,'').trim()===today)rows.push(r);}
-    if(rows.length===0){
-      el.innerHTML='<div style="text-align:center;color:#999;font-size:13px;padding:20px 0">ยังไม่มีข้อมูลวันนี้</div>';
-      return;
-    }
-    var d=new Date();
-    var dayTh=['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'][d.getDay()];
-    var dateStr=dayTh+' '+d.getDate()+'/'+(d.getMonth()+1)+'/'+(d.getFullYear()+543);
-    var html='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
-    html+='<div style="font-size:11px;color:#999">อัพเดตล่าสุด '+dateStr+'</div>';
-    html+='<div style="font-size:11px;font-weight:700;color:#CC0000">'+rows.length+' รายการ</div></div>';
-    html+='<div style="display:flex;flex-direction:column;gap:8px">';
-    rows.forEach(function(r){
-      var name=(r[1]||'').replace(/"/g,'').trim();
-      var time=(r[2]||'').replace(/"/g,'').trim();
-      var nums=(r[3]||'').replace(/"/g,'').split('|').filter(Boolean);
-      var num2=(r[4]||'').replace(/"/g,'').trim();
-      if(num2)nums.push(num2);
-      var flag=getLotteryFlag(name);
-      html+='<div style="display:flex;align-items:center;gap:10px;background:#FAFAFA;border:1px solid #F0EBE3;border-radius:12px;padding:10px 12px">';
-      html+='<div style="font-size:26px;flex-shrink:0;line-height:1">'+flag+'</div>';
+    if(rows.length===0){el.innerHTML='<div style="text-align:center;color:#aaa;font-size:13px;padding:20px 0">ยังไม่มีข้อมูลวันนี้</div>';return;}
+    var updateTime='';
+    for(var i=0;i<rows.length;i++){var t=(rows[i][3]||'').replace(/"/g,'').trim();if(t){updateTime=t;break;}}
+    var html='';
+    if(updateTime)html+='<div style="font-size:11px;color:#999;margin-bottom:10px;text-align:right">อัปเดต '+updateTime+'</div>';
+    rows.forEach(function(r,idx){
+      var nums=(r[1]||'').replace(/"/g,'').trim();
+      var count=parseInt((r[2]||'0').replace(/"/g,'').trim())||0;
+      var parts=nums.split('/').map(function(x){return x.trim();});
+      var rank=idx+1;
+      var rankColor=rank===1?'#CC0000':rank===2?'#C2410C':rank===3?'#B45309':'#6B7280';
+      var rankBg=rank===1?'#FEF2F2':rank===2?'#FFF7ED':rank===3?'#FFFBEB':'#F9FAFB';
+      var maxCount=parseInt((rows[0][2]||'1').replace(/"/g,'').trim())||1;
+      var barPct=Math.round((count/maxCount)*100);
+      html+='<div style="display:flex;align-items:center;gap:10px;padding:10px 0;'+(idx<rows.length-1?'border-bottom:1px solid #F5F5F5;':'')+'">';
+      html+='<div style="width:24px;height:24px;border-radius:50%;background:'+rankBg+';color:'+rankColor+';font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+rank+'</div>';
       html+='<div style="flex:1;min-width:0">';
-      html+='<div style="font-size:13px;font-weight:800;color:#111;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+name+'</div>';
-      html+='<div style="font-size:10px;color:#999;margin-top:2px">⏰ '+time+'</div></div>';
-      html+='<div style="display:flex;gap:4px;flex-shrink:0">';
-      nums.forEach(function(n,idx){
-        var bg=idx===0?'linear-gradient(135deg,#CC0000,#8B0000)':idx===1?'linear-gradient(135deg,#B91C1C,#7F1212)':'linear-gradient(135deg,#991B1B,#6B0F0F)';
-        html+='<div style="background:'+bg+';color:#FFF;font-size:15px;font-weight:900;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;letter-spacing:-.5px;box-shadow:0 2px 6px rgba(204,0,0,.3)">'+n+'</div>';
+      html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">';
+      parts.forEach(function(p){
+        if(!p)return;
+        html+='<span style="background:#CC0000;color:#FFF;font-size:16px;font-weight:900;padding:4px 12px;border-radius:8px;letter-spacing:1px;box-shadow:0 2px 4px rgba(204,0,0,.25)">'+p+'</span>';
       });
+      html+='</div>';
+      html+='<div style="background:#F3F4F6;border-radius:4px;height:4px;overflow:hidden"><div style="background:'+rankColor+';height:100%;width:'+barPct+'%;border-radius:4px;transition:width .6s"></div></div>';
+      html+='<div style="font-size:10px;color:#999;margin-top:3px">'+count.toLocaleString()+' คนเลือก</div>';
       html+='</div></div>';
     });
-    html+='</div>';
     el.innerHTML=html;
-  }).catch(function(){el.innerHTML='<div style="text-align:center;color:#999;font-size:12px;padding:20px 0">โหลดข้อมูลไม่สำเร็จ</div>';});
+  }).catch(function(){el.innerHTML='<div style="text-align:center;color:#aaa;font-size:12px;padding:20px 0">โหลดข้อมูลไม่สำเร็จ</div>';});
 }
 document.addEventListener('DOMContentLoaded',loadDailyNumbers);
 </script>
