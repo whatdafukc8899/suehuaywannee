@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>บทความหวย SEO | ซื้อหวยวันนี้.com</title>
+<meta name="google-site-verification" content="KiYRJX9pYNTZiryNPaSIr-Hq7Yvi4WoFJJKrQZuCUVI" />
+<meta name="description" content="บทความหวยออนไลน์ ข้อมูลหวยลาว หวยฮานอย วิธีซื้อหวย เลขเด็ด สถิติหวย อัปเดตรายวัน"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+:root{--red:#B91C1C;--red2:#7F1212;--red-soft:#FEE2E2;--gold:#C89B3C;--gold-soft:#F6E7BD;--text:#171717;--text2:#454545;--muted:#707070;--green:#15803D;--green-soft:#DCFCE7;--border:#E7E1D3;--bg:#F7F7F4;--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans Thai",Arial,sans-serif;color:var(--text);background:var(--bg);padding-bottom:72px}
+a{text-decoration:none;color:inherit}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.topbar-logo img{height:54px;display:block}
+.topbar-cta{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-radius:999px;padding:9px 16px;font-weight:900;font-size:13px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.96);border-top:1px solid var(--border);display:flex;height:60px}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:10px;font-weight:700;cursor:pointer;text-decoration:none;transition:color .15s}
+.bnav-item i{font-size:22px}.bnav-item svg{display:block;width:22px;height:22px}
+.bnav-item.active{color:var(--red)}
+.page{max-width:480px;margin:0 auto;padding:0 16px}
+.page-header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;background:linear-gradient(135deg,#FFF8E8,#fff)}
+.page-header-inner{max-width:480px;margin:0 auto;padding:0 16px}
+.page-header h1{font-size:26px;color:var(--red);font-weight:900;margin-bottom:4px}
+.page-header p{color:var(--muted);font-size:13px}
+.section-label{font-size:12px;font-weight:900;color:var(--muted);letter-spacing:.08em;margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:"";flex:1;height:1px;background:var(--border)}
+
+/* Category pills */
+.cats{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex-shrink:0;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid var(--border);color:var(--muted);background:#fff;cursor:pointer;white-space:nowrap}
+.cat.active{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* Featured article */
+.article-featured{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:16px}
+.article-featured .thumb{height:160px;background:linear-gradient(145deg,var(--red),var(--red2));display:flex;align-items:center;justify-content:center;position:relative}
+.article-featured .thumb-label{font-size:32px}
+.article-featured .badge-new{position:absolute;top:12px;left:12px;background:#FF4444;color:#fff;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900}
+.article-featured .body{padding:16px}
+.article-featured .cat-tag{display:inline-block;background:var(--red-soft);color:var(--red);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;margin-bottom:8px}
+.article-featured h2{font-size:17px;font-weight:900;color:var(--text);line-height:1.4;margin-bottom:6px}
+.article-featured p{font-size:13px;color:var(--muted);line-height:1.6}
+.article-featured .meta{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--muted)}
+
+/* Article list */
+.article-item{display:grid;grid-template-columns:80px 1fr;gap:12px;align-items:center;padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--border);margin-bottom:10px}
+.article-item .thumb-sm{height:68px;border-radius:12px;background:linear-gradient(145deg,var(--red),var(--red2));display:grid;place-items:center;font-size:22px;color:#fff;font-weight:900;overflow:hidden}
+.article-item .thumb-sm img{width:100%;height:100%;object-fit:cover;display:block}
+.article-item .cat-tag{display:inline-block;background:var(--red-soft);color:var(--red);border-radius:999px;padding:3px 8px;font-size:10px;font-weight:900;margin-bottom:5px}
+.article-item h3{font-size:14px;font-weight:900;color:var(--text);line-height:1.4;margin-bottom:4px}
+.article-item p{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* Keywords */
+.keywords{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.keyword{border:1px solid rgba(200,155,60,.28);background:#fff;border-radius:999px;padding:8px 14px;color:var(--red);font-weight:900;font-size:12px}
+</style>
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ซื้อหวยวันนี้.com" />
+<meta property="og:locale" content="th_TH" />
+<meta property="og:title" content="บทความหวย | ซื้อหวยวันนี้.com" />
+<meta property="og:description" content="บทความหวยออนไลน์ ข้อมูลหวยลาว หวยฮานอย วิธีซื้อหวย เลขเด็ด สถิติหวย อัปเดตรายวัน" />
+<meta property="og:url" content="https://xn--c3c2aa8ayabzp4b3bn0tja.com/article.html" />
+<meta property="og:image" content="https://xn--c3c2aa8ayabzp4b3bn0tja.com/logo-suehuaywannee.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="บทความหวย | ซื้อหวยวันนี้.com" />
+<meta name="twitter:description" content="บทความหวยออนไลน์ ข้อมูลหวยลาว หวยฮานอย วิธีซื้อหวย เลขเด็ด สถิติหวย อัปเดตรายวัน" />
+<meta name="twitter:image" content="https://xn--c3c2aa8ayabzp4b3bn0tja.com/logo-suehuaywannee.png" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="topbar-logo" href="suehuaywannee.html"><img src="logo-suehuaywannee.png" alt="ซื้อหวยวันนี้.com"/></a>
+  <a class="topbar-cta" href="https://namchok99.com" target="_blank" rel="noopener">NAMCHOK99</a>
+</header>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>บทความหวย</h1>
+    <p>ข้อมูล สถิติ และเนื้อหาหวยอัปเดตรายวัน</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="cats">
+    <div class="cat active" onclick="filterCat(this,'ทั้งหมด')">ทั้งหมด</div>
+    <div class="cat" onclick="filterCat(this,'หวยลาว')">หวยลาว</div>
+    <div class="cat" onclick="filterCat(this,'หวยฮานอย')">หวยฮานอย</div>
+    <div class="cat" onclick="filterCat(this,'หวยหุ้น')">หวยหุ้น</div>
+    <div class="cat" onclick="filterCat(this,'วิธีซื้อ')">วิธีซื้อ</div>
+    <div class="cat" onclick="filterCat(this,'สถิติ')">สถิติ</div>
+  </div>
+
+  <!-- Featured -->
+  <a class="article-featured" href="huay-wannee.html">
+    <div class="thumb">
+      <span class="thumb-label">📋</span>
+      <span class="badge-new">ใหม่</span>
+    </div>
+    <div class="body">
+      <span class="cat-tag">หวยวันนี้</span>
+      <h2>หวยวันนี้เปิดอะไรบ้าง? เช็กรายการหวยยอดนิยมประจำวัน</h2>
+      <p>จับคีย์เวิร์ดรายวันและรองรับคนค้นหาก่อนซื้อหวยออนไลน์ ครบทุกประเภทหวย</p>
+      <div class="meta"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>อัปเดตทุกวัน</div>
+    </div>
+  </a>
+
+  <div class="section-label">บทความทั้งหมด</div>
+
+  <a class="article-item" href="public/article-lao-pattana.html">
+    <div class="thumb-sm"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/la.svg" alt="ลาว"/></div>
+    <div>
+      <span class="cat-tag">หวยลาว</span>
+      <h3>หวยลาวพัฒนาปิดรับกี่โมง และดูผลได้จากที่ไหน?</h3>
+      <p>เวลา ตาราง และคำถามที่คนค้นบ่อย</p>
+    </div>
+  </a>
+
+  <a class="article-item" href="public/article-hanoi-types.html">
+    <div class="thumb-sm"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/vn.svg" alt="เวียดนาม"/></div>
+    <div>
+      <span class="cat-tag">หวยฮานอย</span>
+      <h3>ฮานอยพิเศษ ฮานอยปกติ ฮานอย VIP ต่างกันอย่างไร?</h3>
+      <p>แยก intent และสร้าง internal link หมวดหวยฮานอย</p>
+    </div>
+  </a>
+
+  <a class="article-item" href="public/article-newbie-guide.html">
+    <div class="thumb-sm" style="font-size:28px">📖</div>
+    <div>
+      <span class="cat-tag">วิธีซื้อ</span>
+      <h3>มือใหม่ซื้อหวยออนไลน์ ต้องเช็กอะไรบ้างก่อนซื้อ?</h3>
+      <p>สร้างความน่าเชื่อถือ ช่วยผู้ใช้เข้าใจระบบ</p>
+    </div>
+  </a>
+
+  <a class="article-item" href="public/article-lao-stats.html">
+    <div class="thumb-sm"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/la.svg" alt="ลาว"/></div>
+    <div>
+      <span class="cat-tag">สถิติ</span>
+      <h3>สถิติหวยลาวพัฒนาย้อนหลัง 30 งวด เลขไหนออกบ่อย?</h3>
+      <p>วิเคราะห์สถิติ จับเทรนด์เลขดัง</p>
+    </div>
+  </a>
+
+  <a class="article-item" href="public/article-hangsen.html">
+    <div class="thumb-sm"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/hk.svg" alt="ฮ่องกง"/></div>
+    <div>
+      <span class="cat-tag">หวยหุ้น</span>
+      <h3>ฮั่งเส็งออกกี่โมง? รู้จักหวยหุ้นต่างประเทศ</h3>
+      <p>ตารางเวลา ประเภท และวิธีการแทง</p>
+    </div>
+  </a>
+
+  <a class="article-item" href="public/article-gov-lottery.html">
+    <div class="thumb-sm"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/th.svg" alt="ไทย"/></div>
+    <div>
+      <span class="cat-tag">หวยรัฐบาล</span>
+      <h3>หวยรัฐบาลไทย งวดไหนออกวันไหน เช็กงวดถัดไป</h3>
+      <p>ตารางงวดทั้งปี 2569 ครบทุกเดือน</p>
+    </div>
+  </a>
+
+  <div class="section-label">คีย์เวิร์ดยอดค้นหา</div>
+  <div class="keywords">
+    <span class="keyword">ซื้อหวยวันนี้</span>
+    <span class="keyword">หวยวันนี้</span>
+    <span class="keyword">หวยอะไรเปิดวันนี้</span>
+    <span class="keyword">ตารางหวยวันนี้</span>
+    <span class="keyword">ซื้อหวยออนไลน์วันนี้</span>
+    <span class="keyword">หวยลาววันนี้</span>
+    <span class="keyword">หวยฮานอยวันนี้</span>
+    <span class="keyword">ฮานอย VIP</span>
+    <span class="keyword">หวยหุ้นวันนี้</span>
+    <span class="keyword">ผลหวยวันนี้</span>
+  </div>
+
+</div>
+
+<nav class="bottom-nav">
+  <a class="bnav-item" href="suehuaywannee.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l-2 0l9-9l9 9-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M9 21v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6"/></svg>หน้าแรก</a>
+  <a class="bnav-item" href="huay-wannee.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5v2"/><path d="M15 11v2"/><path d="M15 17v2"/><path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2z"/></svg>หวยวันนี้</a>
+  <a class="bnav-item" href="tara-huay.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/></svg>ตาราง</a>
+  <a class="bnav-item" href="how-to.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19a9 9 0 0 1 9 0 9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0 9 9 0 0 1 9 0"/><line x1="3" y1="6" x2="3" y2="19"/><line x1="12" y1="6" x2="12" y2="19"/><line x1="21" y1="6" x2="21" y2="19"/></svg>วิธีซื้อ</a>
+  <a class="bnav-item active" href="article.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1-4 0V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a3 3 0 0 0 3 3h11"/><line x1="8" y1="8" x2="12" y2="8"/><line x1="8" y1="12" x2="12" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>บทความ</a>
+</nav>
+<script>
+function filterCat(el, cat) {
+  document.querySelectorAll('.cat').forEach(function(c){ c.classList.remove('active'); });
+  el.classList.add('active');
+  document.querySelectorAll('.article-item').forEach(function(a) {
+    var tag = a.querySelector('.cat-tag');
+    if(cat === 'ทั้งหมด' || (tag && tag.textContent === cat)) {
+      a.style.display = '';
+    } else {
+      a.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ตารางหวยวันนี้ เวลาปิดรับทุกประเภท | ซื้อหวยวันนี้.com</title>
+<meta name="google-site-verification" content="KiYRJX9pYNTZiryNPaSIr-Hq7Yvi4WoFJJKrQZuCUVI" />
+<meta name="description" content="ตารางหวยวันนี้ เวลาปิดรับหวยลาว หวยฮานอย หวยหุ้น หวยรัฐบาล ครบทุกประเภท อัปเดตทุกวัน"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+:root{--red:#B91C1C;--red2:#7F1212;--red-soft:#FEE2E2;--gold:#C89B3C;--gold-soft:#F6E7BD;--text:#171717;--text2:#454545;--muted:#707070;--green:#15803D;--green-soft:#DCFCE7;--border:#E7E1D3;--bg:#F7F7F4;--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans Thai",Arial,sans-serif;color:var(--text);background:var(--bg);padding-bottom:72px}
+a{text-decoration:none;color:inherit}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.topbar-logo img{height:54px;display:block}
+.topbar-cta{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-radius:999px;padding:9px 16px;font-weight:900;font-size:13px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.96);border-top:1px solid var(--border);display:flex;height:60px}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:10px;font-weight:700;cursor:pointer;text-decoration:none;transition:color .15s}
+.bnav-item i{font-size:22px}.bnav-item svg{display:block;width:22px;height:22px}
+.bnav-item.active{color:var(--red)}
+.page{max-width:480px;margin:0 auto;padding:0 16px}
+.page-header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:20px;background:linear-gradient(135deg,#FFF8E8,#fff)}
+.page-header-inner{max-width:480px;margin:0 auto;padding:0 16px}
+.page-header h1{font-size:26px;color:var(--red);font-weight:900;margin-bottom:4px}
+.page-header p{color:var(--muted);font-size:13px}
+.section-label{font-size:12px;font-weight:900;color:var(--muted);letter-spacing:.08em;margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:"";flex:1;height:1px;background:var(--border)}
+
+/* Schedule table card */
+.sched-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:16px}
+.sched-head{background:var(--red-soft);padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.sched-head span{font-size:22px}
+.sched-head strong{color:var(--red);font-size:15px;font-weight:900}
+.sched-row{display:grid;grid-template-columns:1fr 90px 80px;gap:8px;align-items:center;padding:13px 16px;border-bottom:1px solid var(--border)}
+.sched-row:last-child{border-bottom:none}
+.sched-row p{color:var(--text);font-size:14px;font-weight:700}
+.sched-row small{color:var(--muted);font-size:11px;display:block;margin-top:2px}
+.time{color:var(--text2);font-size:13px;font-weight:900;text-align:center}
+.pill{text-align:center;border-radius:999px;padding:6px 8px;font-size:11px;font-weight:900}
+.pill.open{color:var(--green);background:var(--green-soft);border:1px solid rgba(21,128,61,.2)}
+.pill.closed{color:#6B7280;background:#F3F4F6;border:1px solid #E5E7EB}
+.pill.special{color:#92400E;background:#FEF3C7;border:1px solid rgba(146,64,14,.2)}
+
+/* Day tabs */
+.day-tabs{display:flex;gap:6px;overflow-x:auto;padding:0 0 4px;margin-bottom:20px;scrollbar-width:none}
+.day-tabs::-webkit-scrollbar{display:none}
+.day-tab{flex-shrink:0;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:900;border:1px solid var(--border);color:var(--muted);background:#fff;cursor:pointer;white-space:nowrap}
+.day-tab.active{background:var(--red);color:#fff;border-color:var(--red)}
+
+.note{background:var(--gold-soft);border:1px solid rgba(200,155,60,.3);border-radius:16px;padding:14px 16px;font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:24px}
+.note strong{color:var(--gold2,#8A6424)}
+</style>
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ซื้อหวยวันนี้.com" />
+<meta property="og:locale" content="th_TH" />
+<meta property="og:title" content="ตารางหวยวันนี้ เวลาปิดรับทุกประเภท | ซื้อหวยวันนี้.com" />
+<meta property="og:description" content="ตารางหวยวันนี้ เวลาปิดรับหวยลาว หวยฮานอย หวยหุ้น หวยรัฐบาล ครบทุกประเภท อัปเดตทุกวัน" />
+<meta property="og:url" content="https://xn--c3c2aa8ayabzp4b3bn0tja.com/tara-huay.html" />
+<meta property="og:image" content="https://xn--c3c2aa8ayabzp4b3bn0tja.com/logo-suehuaywannee.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ตารางหวยวันนี้ เวลาปิดรับทุกประเภท | ซื้อหวยวันนี้.com" />
+<meta name="twitter:description" content="ตารางหวยวันนี้ เวลาปิดรับหวยลาว หวยฮานอย หวยหุ้น หวยรัฐบาล ครบทุกประเภท อัปเดตทุกวัน" />
+<meta name="twitter:image" content="https://xn--c3c2aa8ayabzp4b3bn0tja.com/logo-suehuaywannee.png" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="topbar-logo" href="suehuaywannee.html"><img src="logo-suehuaywannee.png" alt="ซื้อหวยวันนี้.com"/></a>
+  <a class="topbar-cta" href="https://namchok99.com" target="_blank" rel="noopener">NAMCHOK99</a>
+</header>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>ตารางหวยวันนี้</h1>
+    <p>เวลาปิดรับแต่ละประเภทหวย — ตรวจสอบก่อนซื้อทุกครั้ง</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="day-tabs">
+    <div class="day-tab">จันทร์</div>
+    <div class="day-tab">อังคาร</div>
+    <div class="day-tab">พุธ</div>
+    <div class="day-tab">พฤหัส</div>
+    <div class="day-tab">ศุกร์</div>
+    <div class="day-tab">เสาร์</div>
+    <div class="day-tab active">วันนี้</div>
+  </div>
+
+  <div class="section-label">หวยลาว</div>
+  <div class="sched-card">
+    <div class="sched-head"><span>🇱🇦</span><strong>หวยลาว</strong></div>
+    <div class="sched-row"><div><p>หวยลาวพัฒนา</p><small>เปิดทุกวัน</small></div><div class="time">20:20 น.</div><div class="pill open">เปิดรับ</div></div>
+    <div class="sched-row"><div><p>หวยลาวสตาร์</p><small>เปิดทุกวัน</small></div><div class="time">20:50 น.</div><div class="pill open">เปิดรับ</div></div>
+    <div class="sched-row"><div><p>หวยลาวซุปเปอร์</p><small>จันทร์–เสาร์</small></div><div class="time">20:00 น.</div><div class="pill open">เปิดรับ</div></div>
+  </div>
+
+  <div class="section-label">หวยฮานอย</div>
+  <div class="sched-card">
+    <div class="sched-head"><span>🇻🇳</span><strong>หวยฮานอย</strong></div>
+    <div class="sched-row"><div><p>หวยฮานอยพิเศษ</p><small>รอบบ่าย · เปิดทุกวัน</small></div><div class="time">17:00 น.</div><div class="pill closed">ปิดแล้ว</div></div>
+    <div class="sched-row"><div><p>หวยฮานอย VIP</p><small>รอบเย็น · เปิดทุกวัน</small></div><div class="time">19:00 น.</div><div class="pill open">เปิดรับ</div></div>
+    <div class="sched-row"><div><p>หวยฮานอยปกติ</p><small>รอบดึก · เปิดทุกวัน</small></div><div class="time">21:00 น.</div><div class="pill open">เปิดรับ</div></div>
+  </div>
+
+  <div class="section-label">หวยหุ้น</div>
+  <div class="sched-card">
+    <div class="sched-head"><span>📈</span><strong>หวยหุ้นต่างประเทศ</strong></div>
+    <div class="sched-row"><div><p>นิเคอิเช้า</p><small>จันทร์–ศุกร์</small></div><div class="time">11:15 น.</div><div class="pill closed">ปิดแล้ว</div></div>
+    <div class="sched-row"><div><p>นิเคอิบ่าย</p><small>จันทร์–ศุกร์</small></div><div class="time">13:45 น.</div><div class="pill closed">ปิดแล้ว</div></div>
+    <div class="sched-row"><div><p>ฮั่งเส็งเช้า</p><small>จันทร์–ศุกร์</small></div><div class="time">11:45 น.</div><div class="pill closed">ปิดแล้ว</div></div>
+    <div class="sched-row"><div><p>ฮั่งเส็งบ่าย</p><small>จันทร์–ศุกร์</small></div><div class="time">15:15 น.</div><div class="pill closed">ปิดแล้ว</div></div>
+    <div class="sched-row"><div><p>ดาวโจนส์</p><small>จันทร์–ศุกร์</small></div><div class="time">04:00 น.</div><div class="pill closed">ปิดแล้ว</div></div>
+  </div>
+
+  <div class="section-label">หวยรัฐบาล</div>
+  <div class="sched-card">
+    <div class="sched-head"><span>🇹🇭</span><strong>หวยรัฐบาลไทย</strong></div>
+    <div class="sched-row"><div><p>หวยรัฐบาลไทย</p><small>งวดวันที่ 1 และ 16 ของทุกเดือน</small></div><div class="time">งวดถัดไป 16 ก.ค.</div><div class="pill special">รอรอบ</div></div>
+  </div>
+
+  <div class="note"><strong>หมายเหตุ:</strong> เวลาปิดรับอาจเปลี่ยนแปลงได้ตามประกาศของแต่ละเจ้ามือ ควรตรวจสอบกับระบบก่อนทำรายการทุกครั้ง</div>
+
+</div>
+
+<nav class="bottom-nav">
+  <a class="bnav-item" href="suehuaywannee.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l-2 0l9-9l9 9-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M9 21v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6"/></svg>หน้าแรก</a>
+  <a class="bnav-item" href="huay-wannee.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5v2"/><path d="M15 11v2"/><path d="M15 17v2"/><path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2z"/></svg>หวยวันนี้</a>
+  <a class="bnav-item active" href="tara-huay.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/></svg>ตาราง</a>
+  <a class="bnav-item" href="how-to.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19a9 9 0 0 1 9 0 9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0 9 9 0 0 1 9 0"/><line x1="3" y1="6" x2="3" y2="19"/><line x1="12" y1="6" x2="12" y2="19"/><line x1="21" y1="6" x2="21" y2="19"/></svg>วิธีซื้อ</a>
+  <a class="bnav-item" href="article.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1-4 0V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a3 3 0 0 0 3 3h11"/><line x1="8" y1="8" x2="12" y2="8"/><line x1="8" y1="12" x2="12" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>บทความ</a>
+</nav>
+
+</body>
+</html>

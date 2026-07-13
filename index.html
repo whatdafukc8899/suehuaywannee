@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+// ถ้าเข้าจาก namchok-dashboard.pages.dev → ไปหน้า Staff Schedule
+if(location.hostname==='namchok-dashboard.pages.dev'){location.replace('/dashboard/');}
+</script>
+<title>ซื้อหวยวันนี้.com | รวมข้อมูลหวยที่เปิดรับวันนี้</title>
+<meta name="google-site-verification" content="KiYRJX9pYNTZiryNPaSIr-Hq7Yvi4WoFJJKrQZuCUVI" />
+<meta name="description" content="ซื้อหวยวันนี้.com เว็บรวมข้อมูลหวยที่เปิดรับวันนี้ ตารางหวย วิธีซื้อหวยออนไลน์ ผลหวย"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+:root{
+  --red:#B91C1C;--red2:#7F1212;--red-soft:#FEE2E2;
+  --gold:#C89B3C;--gold-soft:#F6E7BD;
+  --text:#171717;--text2:#454545;--muted:#707070;
+  --green:#15803D;--green-soft:#DCFCE7;
+  --border:#E7E1D3;--bg:#F7F7F4;--card:#fff
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Sans Thai",Arial,sans-serif;color:var(--text);background:var(--bg);padding-bottom:72px}
+a{text-decoration:none;color:inherit}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.topbar-logo img{height:54px;display:block}
+.topbar-cta{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-radius:999px;padding:9px 16px;font-weight:900;font-size:13px}
+
+/* Bottom nav */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:rgba(255,255,255,.96);border-top:1px solid var(--border);display:flex;height:60px}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:10px;font-weight:700;cursor:pointer;text-decoration:none;transition:color .15s}
+.bnav-item i{font-size:22px}.bnav-item svg{display:block;width:22px;height:22px}
+.bnav-item.active{color:var(--red)}
+
+/* Content */
+.page{max-width:480px;margin:0 auto;padding:0 16px}
+
+/* Hero */
+.hero{padding:24px 0 16px;background:linear-gradient(135deg,#FFF8E8,#fff);border-bottom:1px solid var(--border);margin-bottom:20px}
+.hero-inner{max-width:480px;margin:0 auto;padding:0 16px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--red);font-weight:900;font-size:12px;letter-spacing:.06em;margin-bottom:12px}
+.eyebrow::before{content:"";width:24px;height:2px;background:var(--gold);border-radius:99px;display:block}
+.hero h1{color:var(--red);font-size:32px;line-height:.98;letter-spacing:-.03em;margin-bottom:6px}
+.hero h1 span{display:block;color:var(--text);font-size:18px;margin-top:6px;letter-spacing:-.01em}
+.hero p{color:var(--text2);font-size:14px;line-height:1.75;margin:12px 0 18px}
+.btn-red{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:13px 24px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-weight:900;font-size:15px;width:100%}
+.btn-outline{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 24px;border:1.5px solid var(--gold);color:var(--red);background:#fff;font-weight:900;font-size:14px;width:100%;margin-top:10px}
+
+/* Live lotto */
+.section-label{font-size:13px;font-weight:900;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.lotto-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.lotto-item{border-radius:18px;background:var(--card);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .15s}
+.lotto-item:hover{border-color:var(--gold)}
+.lotto-item.open{border-color:var(--gold)}
+.lotto-top{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:14px}
+.flag{width:44px;height:44px;border-radius:999px;border:2px solid rgba(200,155,60,.6);overflow:hidden;background:#fff;flex-shrink:0}
+.flag img{width:100%;height:100%;object-fit:cover;display:block}
+.lotto-item strong{display:block;color:var(--text);font-size:15px;font-weight:900;margin-bottom:2px}
+.lotto-item small{color:var(--muted);font-size:12px;font-weight:700}
+.badge-open{color:var(--green);background:var(--green-soft);border:1px solid rgba(21,128,61,.2);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900;white-space:nowrap;text-decoration:none;display:inline-block}
+.badge-check{color:#92400E;background:#FEF3C7;border:1px solid rgba(146,64,14,.2);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900;white-space:nowrap}
+/* Expand panel */
+.lotto-panel{display:none;border-top:1px solid var(--border);padding:14px;background:#FDFAF4}
+.lotto-item.open .lotto-panel{display:block}
+.panel-title{font-size:11px;font-weight:900;color:var(--muted);letter-spacing:.06em;margin-bottom:10px}
+.num-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.num-ball{width:40px;height:40px;border-radius:999px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.buy-btn{display:block;text-align:center;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-radius:999px;padding:11px;font-weight:900;font-size:14px;text-decoration:none}
+
+/* Quick nav */
+.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px}
+.quick-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px 16px;text-align:center;text-decoration:none;display:block;transition:border-color .15s}
+.quick-card:hover{border-color:var(--gold)}
+.quick-card .qi{font-size:28px;margin-bottom:8px}
+.quick-card strong{display:block;color:var(--text);font-size:14px;font-weight:900;margin-bottom:3px}
+.quick-card span{color:var(--muted);font-size:12px}
+
+/* CTA band */
+.cta-band{background:linear-gradient(135deg,var(--red),var(--red2));border-radius:20px;padding:24px;text-align:center;margin-bottom:24px}
+.cta-band h2{color:#fff;font-size:20px;margin-bottom:6px}
+.cta-band p{color:rgba(255,255,255,.8);font-size:13px;line-height:1.6;margin-bottom:16px}
+.cta-band a{display:block;background:#fff;color:var(--red);border-radius:999px;padding:13px;font-weight:900;font-size:15px}
+</style>
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ซื้อหวยวันนี้.com" />
+<meta property="og:locale" content="th_TH" />
+<meta property="og:title" content="ซื้อหวยวันนี้.com | รวมข้อมูลหวยที่เปิดรับวันนี้" />
+<meta property="og:description" content="ซื้อหวยวันนี้.com เว็บรวมข้อมูลหวยที่เปิดรับวันนี้ ตารางหวย วิธีซื้อหวยออนไลน์ ผลหวย" />
+<meta property="og:url" content="https://xn--c3c2aa8ayabzp4b3bn0tja.com/suehuaywannee.html" />
+<meta property="og:image" content="https://xn--c3c2aa8ayabzp4b3bn0tja.com/logo-suehuaywannee.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ซื้อหวยวันนี้.com | รวมข้อมูลหวยที่เปิดรับวันนี้" />
+<meta name="twitter:description" content="ซื้อหวยวันนี้.com เว็บรวมข้อมูลหวยที่เปิดรับวันนี้ ตารางหวย วิธีซื้อหวยออนไลน์ ผลหวย" />
+<meta name="twitter:image" content="https://xn--c3c2aa8ayabzp4b3bn0tja.com/logo-suehuaywannee.png" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="topbar-logo" href="suehuaywannee.html">
+    <img src="logo-suehuaywannee.png" alt="ซื้อหวยวันนี้.com"/>
+  </a>
+  <a class="topbar-cta" href="https://namchok99.com" target="_blank" rel="noopener">NAMCHOK99</a>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">ซื้อหวยวันนี้</div>
+    <h1>รวมหวยที่เปิดรับวันนี้<span>เช็กง่าย จบในหน้าเดียว</span></h1>
+    <p>ข้อมูลหวยวันนี้ ตารางปิดรับ วิธีซื้อหวย และบทความวิเคราะห์ เพื่อเชื่อมต่อไปยัง NAMCHOK99</p>
+    <a class="btn-red" href="huay-wannee.html">เช็กหวยที่เปิดวันนี้</a>
+    <a class="btn-outline" href="how-to.html">อ่านวิธีซื้อหวย</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <p class="section-label">หวยเด่นวันนี้</p>
+  <div class="lotto-list">
+
+    <div class="lotto-item" onclick="toggleLotto(this)">
+      <div class="lotto-top">
+        <div class="flag"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/la.svg" alt="ลาว"/></div>
+        <div><strong>หวยลาวพัฒนา</strong><small>ยอดนิยม · รอบเย็น · ปิดรับ 20:20</small></div>
+        <a class="badge-open" href="https://namchok99.com" target="_blank" rel="noopener" onclick="event.stopPropagation()">เปิดรับ</a>
+      </div>
+      <div class="lotto-panel">
+        <div class="panel-title">เลขแนะนำประจำงวด</div>
+        <div class="num-grid">
+          <div class="num-ball">18</div><div class="num-ball">45</div><div class="num-ball">72</div>
+          <div class="num-ball">09</div><div class="num-ball">63</div>
+        </div>
+        <a class="buy-btn" href="https://namchok99.com" target="_blank" rel="noopener">ซื้อหวยลาวที่ NAMCHOK99</a>
+      </div>
+    </div>
+
+    <div class="lotto-item" onclick="toggleLotto(this)">
+      <div class="lotto-top">
+        <div class="flag"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/vn.svg" alt="เวียดนาม"/></div>
+        <div><strong>หวยฮานอย VIP</strong><small>หวยต่างประเทศ · เปิดทุกวัน · ปิดรับ 19:00</small></div>
+        <a class="badge-open" href="https://namchok99.com" target="_blank" rel="noopener" onclick="event.stopPropagation()">เปิดรับ</a>
+      </div>
+      <div class="lotto-panel">
+        <div class="panel-title">เลขแนะนำประจำงวด</div>
+        <div class="num-grid">
+          <div class="num-ball">27</div><div class="num-ball">54</div><div class="num-ball">81</div>
+          <div class="num-ball">36</div><div class="num-ball">90</div>
+        </div>
+        <a class="buy-btn" href="https://namchok99.com" target="_blank" rel="noopener">ซื้อหวยฮานอยที่ NAMCHOK99</a>
+      </div>
+    </div>
+
+    <div class="lotto-item" onclick="toggleLotto(this)">
+      <div class="lotto-top">
+        <div class="flag"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/hk.svg" alt="ฮ่องกง"/></div>
+        <div><strong>ฮั่งเส็ง</strong><small>หวยหุ้นต่างประเทศ · ปิดรับ 15:15</small></div>
+        <a class="badge-open" href="https://namchok99.com" target="_blank" rel="noopener" onclick="event.stopPropagation()">เปิดรับ</a>
+      </div>
+      <div class="lotto-panel">
+        <div class="panel-title">เลขแนะนำประจำงวด</div>
+        <div class="num-grid">
+          <div class="num-ball">15</div><div class="num-ball">33</div><div class="num-ball">67</div>
+          <div class="num-ball">48</div><div class="num-ball">92</div>
+        </div>
+        <a class="buy-btn" href="https://namchok99.com" target="_blank" rel="noopener">ซื้อฮั่งเส็งที่ NAMCHOK99</a>
+      </div>
+    </div>
+
+    <div class="lotto-item" onclick="toggleLotto(this)">
+      <div class="lotto-top">
+        <div class="flag"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/th.svg" alt="ไทย"/></div>
+        <div><strong>หวยรัฐบาลไทย</strong><small>งวดวันที่ 1 และ 16 ของเดือน</small></div>
+        <span class="badge-check">เช็กงวด</span>
+      </div>
+      <div class="lotto-panel">
+        <div class="panel-title">เลขแนะนำงวด 16 ก.ค. 2569</div>
+        <div class="num-grid">
+          <div class="num-ball">16</div><div class="num-ball">59</div><div class="num-ball">84</div>
+          <div class="num-ball">23</div><div class="num-ball">77</div>
+        </div>
+        <a class="buy-btn" href="https://namchok99.com" target="_blank" rel="noopener">ดูเลขเด็ดที่ NAMCHOK99</a>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="section-label">วิเคราะห์เลขรายวัน</p>
+  <div id="daily-numbers-widget" style="background:#FFF;border:1px solid #F0F0F0;border-radius:10px;padding:12px 14px;margin-bottom:18px">
+    <div style="text-align:center;color:#999;font-size:12px;padding:8px">กำลังโหลด...</div>
+  </div>
+
+  <p class="section-label">เมนูหลัก</p>
+  <div class="quick-grid">
+    <a class="quick-card" href="huay-wannee.html"><div class="qi">📋</div><strong>หวยวันนี้</strong><span>เปิดรับทั้งหมด</span></a>
+    <a class="quick-card" href="tara-huay.html"><div class="qi">📅</div><strong>ตารางหวย</strong><span>เวลาปิดรับทุกประเภท</span></a>
+    <a class="quick-card" href="how-to.html"><div class="qi">📖</div><strong>วิธีซื้อหวย</strong><span>มือใหม่เริ่มที่นี่</span></a>
+    <a class="quick-card" href="article.html"><div class="qi">📰</div><strong>บทความ</strong><span>เนื้อหาและสถิติ</span></a>
+  </div>
+
+  <div class="cta-band">
+    <h2>ซื้อหวยออนไลน์ได้ที่ NAMCHOK99</h2>
+    <p>จ่ายจริง โอนไว ระบบเสถียร มากกว่า 100,000+ สมาชิกวางใจ</p>
+    <a href="https://namchok99.com" target="_blank" rel="noopener">เข้าใช้งาน NAMCHOK99</a>
+  </div>
+
+</div>
+
+<nav class="bottom-nav">
+  <a class="bnav-item active" href="suehuaywannee.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l-2 0l9-9l9 9-2 0"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M9 21v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6"/></svg>หน้าแรก</a>
+  <a class="bnav-item" href="huay-wannee.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5v2"/><path d="M15 11v2"/><path d="M15 17v2"/><path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2z"/></svg>หวยวันนี้</a>
+  <a class="bnav-item" href="tara-huay.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/></svg>ตาราง</a>
+  <a class="bnav-item" href="how-to.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19a9 9 0 0 1 9 0 9 9 0 0 1 9 0"/><path d="M3 6a9 9 0 0 1 9 0 9 9 0 0 1 9 0"/><line x1="3" y1="6" x2="3" y2="19"/><line x1="12" y1="6" x2="12" y2="19"/><line x1="21" y1="6" x2="21" y2="19"/></svg>วิธีซื้อ</a>
+  <a class="bnav-item" href="article.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1-4 0V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a3 3 0 0 0 3 3h11"/><line x1="8" y1="8" x2="12" y2="8"/><line x1="8" y1="12" x2="12" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>บทความ</a>
+</nav>
+
+<script>
+function toggleLotto(el){
+  var isOpen = el.classList.contains('open');
+  document.querySelectorAll('.lotto-item').forEach(function(i){ i.classList.remove('open'); });
+  if(!isOpen) el.classList.add('open');
+}
+</script>
+<script>
+var DAILY_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vT8jLwns22k_6jK1zJFaWKj3YsUrlIV5vrmepsH1h76vwx7fV-GDv4WapQXx7L5MgspaNLCyx5kG08h/pub?output=csv';
+function getTodayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function parseCSVRow(row){var result=[],cur='',inQ=false;for(var i=0;i<row.length;i++){var c=row[i];if(c==='"'){inQ=!inQ;}else if(c===','&&!inQ){result.push(cur.trim());cur='';}else{cur+=c;}}result.push(cur.trim());return result;}
+function loadDailyNumbers(){
+  var el=document.getElementById('daily-numbers-widget');
+  if(!el)return;
+  fetch(DAILY_CSV).then(function(r){return r.text();}).then(function(text){
+    var lines=text.split('\n'),today=getTodayStr(),rows=[];
+    for(var i=1;i<lines.length;i++){if(!lines[i].trim())continue;var r=parseCSVRow(lines[i]);if(r[0]&&r[0].replace(/"/g,'').trim()===today)rows.push(r);}
+    if(rows.length===0){el.innerHTML='<div style="text-align:center;color:#999;font-size:12px;padding:8px">ยังไม่มีข้อมูลวันนี้</div>';return;}
+    var html='';
+    rows.forEach(function(r,i){
+      var name=(r[1]||'').replace(/"/g,''),time=(r[2]||'').replace(/"/g,'');
+      var nums=(r[3]||'').replace(/"/g,'').split('|').filter(Boolean);
+      var num2=(r[4]||'').replace(/"/g,'').trim();
+      if(num2)nums.push(num2);
+      var border=i<rows.length-1?'border-bottom:1px solid #F5F5F5;':'';
+      html+='<div style="display:flex;align-items:center;gap:10px;padding:9px 0;'+border+'">';
+      html+='<div style="flex:1"><div style="font-size:13px;font-weight:700;color:#111;line-height:1.3">'+name+'</div><div style="font-size:10px;color:#999;margin-top:2px">'+time+'</div></div>';
+      html+='<div style="display:flex;gap:5px">';
+      nums.forEach(function(n){html+='<span style="background:#CC0000;color:#FFF;font-size:13px;font-weight:800;padding:4px 9px;border-radius:6px">'+n+'</span>';});
+      html+='</div></div>';
+    });
+    el.innerHTML=html;
+  }).catch(function(){el.innerHTML='<div style="text-align:center;color:#999;font-size:12px;padding:8px">โหลดข้อมูลไม่สำเร็จ</div>';});
+}
+document.addEventListener('DOMContentLoaded',loadDailyNumbers);
+</script>
+</body>
+</html>
