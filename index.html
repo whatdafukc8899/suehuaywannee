@@ -228,39 +228,59 @@ function toggleLotto(el){
 }
 </script>
 <script>
-var DAILY_CSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vT8jLwns22k_6jK1zJFaWKj3YsUrlIV5vrmepsH1h76vwx7fV-GDv4WapQXx7L5MgspaNLCyx5kG08h/pub?output=csv';
+var DAILY_TSV='https://docs.google.com/spreadsheets/d/e/2PACX-1vT8jLwns22k_6jK1zJFaWKj3YsUrlIV5vrmepsH1h76vwx7fV-GDv4WapQXx7L5MgspaNLCyx5kG08h/pub?gid=886751551&single=true&output=tsv';
 function getTodayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-function parseCSVRow(row){var result=[],cur='',inQ=false;for(var i=0;i<row.length;i++){var c=row[i];if(c==='"'){inQ=!inQ;}else if(c===','&&!inQ){result.push(cur.trim());cur='';}else{cur+=c;}}result.push(cur.trim());return result;}
+function getLotteryInfo(name){
+  var n=name;
+  if(n.includes('ลาว'))return{flag:'🇱🇦',color:'#C0392B'};
+  if(n.includes('ฮานอย')||n.includes('เวียด'))return{flag:'🇻🇳',color:'#C0392B'};
+  if(n.includes('มาเลย์'))return{flag:'🇲🇾',color:'#CC3300'};
+  if(n.includes('เกาหลี'))return{flag:'🇰🇷',color:'#003087'};
+  if(n.includes('นิกเกอิ')||n.includes('ญี่ปุ่น'))return{flag:'🇯🇵',color:'#BC002D'};
+  if(n.includes('ไต้หวัน'))return{flag:'🇹🇼',color:'#003087'};
+  if(n.includes('จีน'))return{flag:'🇨🇳',color:'#DE2910'};
+  if(n.includes('ฮั่งเส็ง'))return{flag:'🇭🇰',color:'#DE2910'};
+  if(n.includes('สิงคโปร์'))return{flag:'🇸🇬',color:'#EF3340'};
+  if(n.includes('อินเดีย'))return{flag:'🇮🇳',color:'#FF9933'};
+  if(n.includes('รัสเซีย'))return{flag:'🇷🇺',color:'#003087'};
+  if(n.includes('เยอรมัน'))return{flag:'🇩🇪',color:'#000000'};
+  if(n.includes('อังกฤษ'))return{flag:'🇬🇧',color:'#012169'};
+  if(n.includes('ดาวโจนส์'))return{flag:'🇺🇸',color:'#003087'};
+  if(n.includes('ไทย')||n.includes('รัฐบาล'))return{flag:'🇹🇭',color:'#003087'};
+  if(n.includes('ยี่กี'))return{flag:'🎲',color:'#7C3AED'};
+  return{flag:'🎯',color:'#CC0000'};
+}
 function loadDailyNumbers(){
   var el=document.getElementById('daily-numbers-widget');
   if(!el)return;
-  fetch(DAILY_CSV).then(function(r){return r.text();}).then(function(text){
+  fetch(DAILY_TSV).then(function(r){return r.text();}).then(function(text){
     var lines=text.split('\n'),today=getTodayStr(),rows=[];
-    for(var i=1;i<lines.length;i++){if(!lines[i].trim())continue;var r=parseCSVRow(lines[i]);if(r[0]&&r[0].replace(/"/g,'').trim()===today)rows.push(r);}
+    for(var i=1;i<lines.length;i++){
+      if(!lines[i].trim())continue;
+      var r=lines[i].split('\t');
+      if(r[0]&&r[0].trim()===today)rows.push(r);
+    }
     if(rows.length===0){el.innerHTML='<div style="text-align:center;color:#aaa;font-size:13px;padding:20px 0">ยังไม่มีข้อมูลวันนี้</div>';return;}
-    var updateTime='';
-    for(var i=0;i<rows.length;i++){var t=(rows[i][3]||'').replace(/"/g,'').trim();if(t){updateTime=t;break;}}
-    var html='';
-    if(updateTime)html+='<div style="font-size:11px;color:#999;margin-bottom:10px;text-align:right">อัปเดต '+updateTime+'</div>';
-    rows.forEach(function(r,idx){
-      var nums=(r[1]||'').replace(/"/g,'').trim();
-      var count=parseInt((r[2]||'0').replace(/"/g,'').trim())||0;
-      var parts=nums.split('/').map(function(x){return x.trim();});
-      var rank=idx+1;
-      var rankColor=rank===1?'#CC0000':rank===2?'#C2410C':rank===3?'#B45309':'#6B7280';
-      var rankBg=rank===1?'#FEF2F2':rank===2?'#FFF7ED':rank===3?'#FFFBEB':'#F9FAFB';
-      var maxCount=parseInt((rows[0][2]||'1').replace(/"/g,'').trim())||1;
-      var barPct=Math.round((count/maxCount)*100);
-      html+='<div style="display:flex;align-items:center;gap:10px;padding:10px 0;'+(idx<rows.length-1?'border-bottom:1px solid #F5F5F5;':'')+'">';
-      html+='<div style="width:24px;height:24px;border-radius:50%;background:'+rankBg+';color:'+rankColor+';font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+rank+'</div>';
+    var html='<div style="display:flex;flex-direction:column;gap:8px">';
+    rows.forEach(function(r){
+      var name=(r[1]||'').trim();
+      var time=(r[2]||'').trim();
+      var nums=(r[3]||'').trim().split('|').filter(Boolean);
+      var num2=(r[4]||'').trim();
+      if(num2)nums.push(num2);
+      var info=getLotteryInfo(name);
+      html+='<div style="display:flex;align-items:center;gap:10px;background:#FAFAFA;border:1px solid #F0EBE3;border-radius:12px;padding:10px 12px">';
+      html+='<div style="font-size:28px;flex-shrink:0;line-height:1">'+info.flag+'</div>';
       html+='<div style="flex:1;min-width:0">';
-      html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">';
-      parts.forEach(function(p){if(!p)return;html+='<span style="background:#CC0000;color:#FFF;font-size:16px;font-weight:900;padding:4px 12px;border-radius:8px;letter-spacing:1px;box-shadow:0 2px 4px rgba(204,0,0,.25)">'+p+'</span>';});
-      html+='</div>';
-      html+='<div style="background:#F3F4F6;border-radius:4px;height:4px;overflow:hidden"><div style="background:'+rankColor+';height:100%;width:'+barPct+'%"></div></div>';
-      html+='<div style="font-size:10px;color:#999;margin-top:3px">'+count.toLocaleString()+' คนเลือก</div>';
+      html+='<div style="font-size:13px;font-weight:800;color:#111;line-height:1.3">'+name+'</div>';
+      html+='<div style="font-size:10px;color:#999;margin-top:2px">⏰ '+time+'</div></div>';
+      html+='<div style="display:flex;gap:5px;flex-shrink:0">';
+      nums.forEach(function(n){
+        html+='<div style="background:'+info.color+';color:#FFF;font-size:15px;font-weight:900;min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(0,0,0,.2)">'+n+'</div>';
+      });
       html+='</div></div>';
     });
+    html+='</div>';
     el.innerHTML=html;
   }).catch(function(){el.innerHTML='<div style="text-align:center;color:#aaa;font-size:12px;padding:20px 0">โหลดข้อมูลไม่สำเร็จ</div>';});
 }
