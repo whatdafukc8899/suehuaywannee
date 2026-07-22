@@ -53,6 +53,7 @@ a{text-decoration:none;color:inherit}
 .btn-outline{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 24px;border:1.5px solid var(--gold);color:var(--red);background:#fff;font-weight:900;font-size:14px;width:100%;margin-top:10px}
 
 /* Live lotto */
+@keyframes pulse-rec{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}
 .section-label{font-size:13px;font-weight:900;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
 .lotto-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
 .lotto-item{border-radius:18px;background:var(--card);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .15s}
@@ -153,18 +154,15 @@ a{text-decoration:none;color:inherit}
   <p class="section-label">หวยเด่นวันนี้</p>
   <div class="lotto-list">
 
-    <div class="lotto-item" onclick="toggleLotto(this)">
+    <div class="lotto-item" onclick="toggleLotto(this)" style="border:1.5px solid #CC0000;background:linear-gradient(135deg,#fff8f8,#fff)">
       <div class="lotto-top">
         <div class="flag"><img src="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3/la.svg" alt="ลาว"/></div>
-        <div><strong>หวยลาวพัฒนา</strong><small>ยอดนิยม · รอบเย็น · ปิดรับ 20:20</small></div>
+        <div><strong>หวยลาวพัฒนา</strong><small>ยอดนิยม · รอบเย็น · ปิดรับ 20:20</small><br><span style="display:inline-flex;align-items:center;gap:3px;background:linear-gradient(90deg,#CC0000,#FF4444);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:3px;animation:pulse-rec 1.4s ease-in-out infinite">⭐ แนะนำ</span></div>
         <a class="badge-open" href="https://namchok99.com" target="_blank" rel="noopener" onclick="event.stopPropagation()">เปิดรับ</a>
       </div>
       <div class="lotto-panel">
         <div class="panel-title">เลขแนะนำประจำงวด</div>
-        <div class="num-grid">
-          <div class="num-ball">18</div><div class="num-ball">45</div><div class="num-ball">72</div>
-          <div class="num-ball">09</div><div class="num-ball">63</div>
-        </div>
+        <div class="num-grid" id="lao-pat-card-nums"></div>
         <a class="buy-btn" href="https://namchok99.com" target="_blank" rel="noopener">ซื้อหวยลาวที่ NAMCHOK99</a>
       </div>
     </div>
@@ -281,6 +279,14 @@ function getLotteryInfo(name){
   if(name.includes('ไทย')||name.includes('รัฐบาล'))return{code:'th',color:'#003087'};
   return{code:'',color:'#CC0000'};
 }
+function rnd2(){return String(Math.floor(Math.random()*100)).padStart(2,'0');}
+function rnd3(){return String(Math.floor(Math.random()*1000)).padStart(3,'0');}
+function initLaoPat(){
+  var g=document.getElementById('lao-pat-card-nums');
+  if(g){var ns=[rnd2(),rnd2(),rnd2(),rnd2(),rnd3()];g.innerHTML=ns.map(function(n){return'<div class="num-ball">'+n+'</div>';}).join('');}
+}
+document.addEventListener('DOMContentLoaded',initLaoPat);
+
 function loadDailyNumbers(){
   var el=document.getElementById('daily-numbers-widget');
   if(!el)return;
@@ -292,8 +298,16 @@ function loadDailyNumbers(){
       var rname=(r[1]||'').trim();
       if(r[0]&&r[0].trim()===today&&SHOW_ONLY.indexOf(rname)!==-1)rows.push(r);
     }
-    if(rows.length===0){el.innerHTML='<div style="text-align:center;color:#aaa;font-size:13px;padding:20px 0">ยังไม่มีข้อมูลวันนี้</div>';return;}
     var html='<div style="display:flex;flex-direction:column;gap:8px">';
+    // ลาวพัฒนา random — แสดงทุกวันโดยไม่ต้องพึ่ง Sheet
+    var lpNums=[rnd2(),rnd2(),rnd3()];
+    html+='<div style="display:flex;align-items:center;gap:10px;background:#fff8f8;border:1.5px solid #CC0000;border-radius:12px;padding:10px 12px;position:relative">';
+    html+='<img src="https://flagcdn.com/32x24/la.png" width="32" height="24" style="border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.2);flex-shrink:0" alt="">';
+    html+='<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:800;color:#111;line-height:1.3">ลาวพัฒนา <span style="display:inline-flex;align-items:center;gap:2px;background:linear-gradient(90deg,#CC0000,#FF4444);color:#fff;font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px;vertical-align:middle;animation:pulse-rec 1.4s ease-in-out infinite">⭐ แนะนำ</span></div><div style="font-size:10px;color:#999;margin-top:2px">⏰ 20:30 น.</div></div>';
+    html+='<div style="display:flex;gap:5px;flex-shrink:0">';
+    lpNums.forEach(function(n){html+='<div style="background:#CC0000;color:#FFF;font-size:15px;font-weight:900;min-width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(0,0,0,.2)">'+n+'</div>';});
+    html+='</div></div>';
+    if(rows.length===0){el.innerHTML=html+'</div>';return;}
     rows.forEach(function(r){
       var name=(r[1]||'').trim();
       var time=(r[2]||'').trim();
