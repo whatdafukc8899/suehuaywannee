@@ -313,15 +313,28 @@ function toggleLotto(el){
 var DAILY_TSV='https://docs.google.com/spreadsheets/d/1tHROjy4NPo-znXBhMxCCCyR531r4RgKpRBiMitQdYBg/gviz/tq?tqx=out:csv&sheet=daily';
 function parseCSV(text){return text.trim().split('\n').slice(1).map(function(line){var cols=[],cur='',inQ=false;for(var i=0;i<line.length;i++){var ch=line[i];if(ch==='"'){inQ=!inQ;}else if(ch===','&&!inQ){cols.push(cur.trim());cur='';}else{cur+=ch;}}cols.push(cur.trim());return cols;}).filter(function(r){return r[0];});}
 function getTodayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-var SHOW_ONLY=['หุ้นไทยเย็น','ลาวสตาร์','หุ้นอินเดีย','หุ้นฮั่งเส็ง เช้า','หุ้นฮั่งเส็ง บ่าย','ฮานอยพิเศษ','ฮานอย VIP'];
+var SHOW_ONLY=['หุ้นนิเคอิ เช้า','หุ้นนิเคอิ บ่าย','หุ้นจีน เช้า','หุ้นจีน บ่าย','หุ้นฮั่งเส็ง เช้า','หุ้นฮั่งเส็ง บ่าย','หุ้นไต้หวัน','หุ้นสิงคโปร์','หุ้นเกาหลี','หุ้นไทยเย็น','หุ้นอินเดีย','หุ้นรัสเซีย','หุ้นเยอรมัน','หุ้นอังกฤษ','หุ้นดาวโจนส์','หวยมาเลย์ 4D','หวยลาว VIP','หวยฮานอย','หวยลาวพัฒนา','หวยลาวสตาร์'];
 var LOTTERY_INFO={
-  'หุ้นไทยเย็น':{code:'th',color:'#003087'},
-  'ลาวสตาร์':{code:'la',color:'#C0392B'},
-  'หุ้นอินเดีย':{code:'in',color:'#FF6B00'},
+  'หุ้นนิเคอิ เช้า':{code:'jp',color:'#BC002D'},
+  'หุ้นนิเคอิ บ่าย':{code:'jp',color:'#BC002D'},
+  'หุ้นจีน เช้า':{code:'cn',color:'#DE2910'},
+  'หุ้นจีน บ่าย':{code:'cn',color:'#DE2910'},
   'หุ้นฮั่งเส็ง เช้า':{code:'hk',color:'#DE2910'},
   'หุ้นฮั่งเส็ง บ่าย':{code:'hk',color:'#DE2910'},
-  'ฮานอยพิเศษ':{code:'vn',color:'#C0392B'},
-  'ฮานอย VIP':{code:'vn',color:'#C0392B'}
+  'หุ้นไต้หวัน':{code:'tw',color:'#003087'},
+  'หุ้นสิงคโปร์':{code:'sg',color:'#EF3340'},
+  'หุ้นเกาหลี':{code:'kr',color:'#003087'},
+  'หุ้นไทยเย็น':{code:'th',color:'#003087'},
+  'หุ้นอินเดีย':{code:'in',color:'#FF6B00'},
+  'หุ้นรัสเซีย':{code:'ru',color:'#003087'},
+  'หุ้นเยอรมัน':{code:'de',color:'#000000'},
+  'หุ้นอังกฤษ':{code:'gb',color:'#012169'},
+  'หุ้นดาวโจนส์':{code:'us',color:'#3C3B6E'},
+  'หวยมาเลย์ 4D':{code:'my',color:'#CC0001'},
+  'หวยลาว VIP':{code:'la',color:'#CE1126'},
+  'หวยฮานอย':{code:'vn',color:'#C0392B'},
+  'หวยลาวพัฒนา':{code:'la',color:'#CE1126'},
+  'หวยลาวสตาร์':{code:'la',color:'#CE1126'}
 };
 function getFlagImg(code){
   return '<img src="https://flagcdn.com/32x24/'+code+'.png" width="32" height="24" style="border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.2);flex-shrink:0" alt="">';
